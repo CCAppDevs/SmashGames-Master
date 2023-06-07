@@ -118,3 +118,66 @@ document.getElementById("brand").innerHTML = data.brandName.toUpperCase();
 
 // get access to page title h1 and change it to page.pageName
 document.getElementById("pageName").innerHTML = page.pageName;
+
+// This is the code to create blocks
+
+/* <div class="call-to-action">
+    <img src="images/Inferno-Jumbotron.png" alt="Inferno Blast Gameplay" />
+    <br />
+    <a class="btn" href="https://steampowered.com" target="_blank">Buy Now on Steam! <i class="fa-brands fa-steam-symbol"></i></a>
+</div> */
+
+createCallToAction(page.blocks[0]);
+createDescription(page.blocks[1]);
+
+createPage(page.blocks);
+
+function createPage(blocks) {
+    for (let i = 0; i < blocks.length; i++) {
+        let currentBlock = blocks[i];
+        if (currentBlock.type = "call-to-action") {
+            createCallToAction(currentblock);
+        } else if (currentBlock.type == "description") {
+            createDescription(currentBlock);
+        } else {
+            console.log("no block template found");
+        }
+    }
+}
+
+function createImage(imgData) {
+    let img = document.createElement("img");
+    img.src = imgData.src;
+    img.alt = imgData.alt;
+
+    return img;
+}
+
+function createButtonLink(linkData) {
+    let link = document.createElement("a");
+    link.classList.add("btn");
+    link.href = linkData.buttonLinkSrc;
+    link.target = "_blank";
+    link.innerHTML = linkData.buttonLinkText + ' <i class="fa-brands fa-steam-symbol"></i>';
+    return link;
+}
+
+function createCallToAction(blockData) {
+    // get the main container
+    let container = document.getElementById("main");
+
+    // create our block
+    let block = document.createElement("div");
+    block.classList.add("call-to-action");
+
+    // add our image
+    block.appendChild(createImage(blockData));
+    block.appendChild(createButtonLink(blockData));
+    // add our break
+    block.appendChild(document.createElement("br"));
+    // add our call to action button
+
+
+    // add our block to main
+    container.appendChild(block);
+}
