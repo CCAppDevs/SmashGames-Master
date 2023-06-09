@@ -119,17 +119,7 @@ document.getElementById("brand").innerHTML = data.brandName.toUpperCase();
 // get access to page title h1 and change it to page.pageName
 document.getElementById("pageName").innerHTML = page.pageName;
 
-// This is the code to create blocks
-
-/* <div class="call-to-action">
-    <img src="images/Inferno-Jumbotron.png" alt="Inferno Blast Gameplay" />
-    <br />
-    <a class="btn" href="https://steampowered.com" target="_blank">Buy Now on Steam! <i class="fa-brands fa-steam-symbol"></i></a>
-</div> */
-
-createCallToAction(page.blocks[0]);
-createDescription(page.blocks[1]);
-
+//
 createPage(page.blocks);
 
 function createPage(blocks) {
@@ -139,6 +129,8 @@ function createPage(blocks) {
             createCallToAction(currentblock);
         } else if (currentBlock.type == "description") {
             createDescription(currentBlock);
+        } else if (currentBlock.type == "deck") {
+            createDeck(currentBlock);   
         } else {
             console.log("no block template found");
         }
@@ -179,5 +171,36 @@ function createCallToAction(blockData) {
 
 
     // add our block to main
+    container.appendChild(block);
+}
+
+function createDeck(blockData) {
+
+    // Creating the feature div
+    let block = document.createElement("div");
+    block.classList.add("features");
+
+    let deck = document.createElement("div");
+    deck.classList.add("deck");
+    block.appendChild(deck);
+
+    for (let i = 0; i < blockData.cards.length; i++) {
+        let card = document.createElement("div");
+        card.classList.add("card");
+        card.appendChild(createImage({ 
+            src: blockData.cards[i].src, 
+            alt: blockData.cards[i].altText
+        }));
+
+        let body = document.createElement("div");
+        body.classList.add("card-body");
+        card.appendChild(body);
+        let title = document.createElement("h3");
+
+        body.appendChild(title);
+
+        block.app
+    }
+
     container.appendChild(block);
 }
